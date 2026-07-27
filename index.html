@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AKO — Portafolio</title>
+<meta name="description" content="AKO — arte visual y diseño. Colecciones, proyectos y proceso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F7F6F3;
+    --ink:#131313;
+    --ink-soft:#5c5a55;
+    --line:#dcd9d2;
+    --accent:#8a5a24;      /* ámbar profundo, guiño al vidrio */
+    --paper:#ffffff;
+    --display:'Archivo',sans-serif;
+    --body:'Instrument Sans',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  ul{list-style:none}
+
+  /* ---------- utilidades ---------- */
+  .wrap{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+  .eyebrow{
+    font-family:var(--display);
+    font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .h-display{
+    font-family:var(--display);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-weight:500;
+    line-height:1.05;
+  }
+  .link-line{
+    font-family:var(--display);
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:3px;
+    transition:color .25s,border-color .25s;
+  }
+  .link-line:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;inset:0 0 auto 0;z-index:50;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;
+  }
+  .logo{
+    font-family:var(--display);
+    font-size:22px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;
+  }
+  .logo span{color:var(--accent)}
+  .menu{display:flex;gap:clamp(18px,3vw,44px)}
+  .menu a{
+    font-family:var(--display);
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    padding:8px 0;position:relative;
+  }
+  .menu a::after{
+    content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
+    background:var(--accent);transition:width .3s;
+  }
+  .menu a:hover::after{width:100%}
+  .burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+  .burger span{display:block;width:24px;height:1.5px;background:var(--ink);margin:6px 0;transition:.3s}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;height:100svh;min-height:560px;
+    display:flex;align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    filter:saturate(.92);
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(12,10,8,.55) 0%,rgba(12,10,8,0) 45%);
+  }
+  .hero-inner{
+    position:relative;z-index:2;color:#fff;
+    padding-bottom:clamp(48px,8vh,96px);
+    width:100%;
+  }
+  .hero h1{font-size:clamp(52px,9vw,128px)}
+  .hero p{
+    margin-top:16px;max-width:520px;
+    font-size:15px;color:#f0ede8;
+  }
+  .hero .link-line{color:#fff;border-color:#fff;margin-top:28px;display:inline-block}
+  .hero .link-line:hover{color:var(--bg);border-color:var(--bg)}
+
+  /* ---------- grid de accesos (como all/new/interior/exterior) ---------- */
+  .gateway{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    gap:1px;background:var(--line);
+    border-block:1px solid var(--line);
+  }
+  .gateway a{
+    position:relative;background:var(--bg);
+    aspect-ratio:3/4;overflow:hidden;
+  }
+  .gateway img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .6s ease;
+  }
+  .gateway a:hover img{transform:scale(1.04)}
+  .gateway figcaption{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:18px 20px;
+    background:linear-gradient(to top,rgba(12,10,8,.55),transparent);
+    color:#fff;
+    font-family:var(--display);
+    font-size:12px;letter-spacing:.24em;text-transform:uppercase;
+  }
+
+  /* ---------- secciones ---------- */
+  section{padding:clamp(64px,10vh,128px) 0}
+  .section-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:24px;margin-bottom:clamp(28px,5vh,56px);
+    flex-wrap:wrap;
+  }
+  .section-head h2{font-size:clamp(28px,4vw,44px)}
+
+  /* sobre */
+  .about-grid{
+    display:grid;grid-template-columns:1.1fr .9fr;
+    gap:clamp(32px,6vw,88px);align-items:center;
+  }
+  .about-grid p{color:var(--ink-soft);max-width:56ch;font-size:16px}
+  .about-grid p+p{margin-top:1em}
+  .about-grid .link-line{margin-top:32px;display:inline-block}
+  .about-img{aspect-ratio:4/5;overflow:hidden}
+  .about-img img{width:100%;height:100%;object-fit:cover}
+
+  /* noticias */
+  .news{background:var(--paper);border-block:1px solid var(--line)}
+  .news-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    gap:clamp(16px,2.5vw,32px);
+  }
+  .news-card .thumb{aspect-ratio:4/3;overflow:hidden;margin-bottom:14px}
+  .news-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .news-card:hover img{transform:scale(1.05)}
+  .news-card h3{
+    font-family:var(--display);font-weight:500;
+    font-size:14px;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .news-card time{font-size:13px;color:var(--ink-soft)}
+
+  /* banners de series (como Arcade / Starcloud) */
+  .series a{
+    position:relative;display:flex;align-items:center;
+    height:min(78vh,680px);overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .series img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    transition:transform 1.2s ease;
+  }
+  .series a:hover img{transform:scale(1.03)}
+  .series .veil{
+    position:absolute;inset:0;
+    background:linear-gradient(100deg,rgba(12,10,8,.5) 0%,rgba(12,10,8,.05) 60%);
+  }
+  .series .txt{position:relative;z-index:2;color:#fff}
+  .series h3{font-size:clamp(36px,6vw,80px)}
+  .series .link-line{color:#fff;border-color:#fff;margin-top:22px;display:inline-block}
+  .series .link-line:hover{color:var(--bg);border-color:var(--bg)}
+
+  /* proceso */
+  .process-grid{
+    display:grid;grid-template-columns:.9fr 1.1fr;
+    gap:clamp(32px,6vw,88px);align-items:center;
+  }
+  .process-grid p{color:var(--ink-soft);max-width:56ch;font-size:16px}
+  .process-img{aspect-ratio:16/11;overflow:hidden}
+  .process-img img{width:100%;height:100%;object-fit:cover}
+
+  /* newsletter */
+  .newsletter{
+    background:var(--ink);color:var(--bg);
+    text-align:center;
+  }
+  .newsletter h2{font-size:clamp(26px,3.5vw,40px)}
+  .newsletter p{color:#b8b4ac;margin:14px auto 32px;max-width:46ch}
+  .newsletter form{
+    display:flex;gap:0;max-width:440px;margin:0 auto;
+    border:1px solid #4a4842;
+  }
+  .newsletter input{
+    flex:1;background:transparent;border:none;outline:none;
+    color:var(--bg);padding:14px 18px;font-family:var(--body);font-size:14px;
+  }
+  .newsletter input::placeholder{color:#8a877f}
+  .newsletter button{
+    background:var(--bg);color:var(--ink);border:none;cursor:pointer;
+    font-family:var(--display);font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;padding:0 22px;
+    transition:background .25s;
+  }
+  .newsletter button:hover{background:var(--accent);color:#fff}
+
+  /* footer */
+  footer{background:var(--ink);color:#b8b4ac;padding:72px 0 40px}
+  .foot-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:clamp(28px,4vw,64px);
+    padding-bottom:56px;border-bottom:1px solid #35332f;
+  }
+  .foot-logo{
+    font-family:var(--display);color:var(--bg);
+    font-size:20px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;
+    margin-bottom:20px;display:inline-block;
+  }
+  footer h4{
+    font-family:var(--display);color:var(--bg);
+    font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+    margin-bottom:16px;font-weight:500;
+  }
+  footer li{margin-bottom:10px;font-size:14px}
+  footer a:hover{color:var(--bg)}
+  .foot-base{
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    padding-top:28px;font-size:12px;color:#7d7a73;
+  }
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    .gateway img,.news-card img,.series img{transition:none}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .gateway{grid-template-columns:repeat(2,1fr)}
+    .news-grid{grid-template-columns:repeat(2,1fr)}
+    .about-grid,.process-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){
+    .menu{
+      position:fixed;inset:72px 0 auto 0;
+      flex-direction:column;gap:0;
+      background:var(--bg);border-bottom:1px solid var(--line);
+      max-height:0;overflow:hidden;transition:max-height .35s ease;
+    }
+    .menu.open{max-height:320px}
+    .menu a{padding:16px clamp(20px,4vw,56px);border-top:1px solid var(--line)}
+    .burger{display:block}
+    .news-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">AK<span>O</span></a>
+    <button class="burger" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="menu" id="menu">
+      <a href="#obras">Obras</a>
+      <a href="#inspiracion">Inspiración</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#noticias">Noticias</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <img src="https://picsum.photos/seed/ako-hero/1920/1200" alt="Obra destacada de Ako">
+  <div class="wrap hero-inner">
+    <p class="eyebrow" style="color:#d8d4cc">Arte visual · Diseño</p>
+    <h1 class="h-display">Ako</h1>
+    <p>Colecciones y proyectos donde el color, la materia y la luz se encuentran. Cada pieza nace de un proceso artesanal y una mirada contemporánea.</p>
+    <a href="#obras" class="link-line">Ver obras</a>
+  </div>
+</div>
+
+<!-- ============ GRID DE ACCESOS ============ -->
+<div class="gateway" id="obras">
+  <a href="#" class="reveal">
+    <img src="https://picsum.photos/seed/ako-all/800/1000" alt="Todas las obras">
+    <figcaption>Todas las obras</figcaption>
+  </a>
+  <a href="#" class="reveal">
+    <img src="https://picsum.photos/seed/ako-new/800/1000" alt="Series nuevas">
+    <figcaption>Series nuevas</figcaption>
+  </a>
+  <a href="#" class="reveal">
+    <img src="https://picsum.photos/seed/ako-illus/800/1000" alt="Ilustración">
+    <figcaption>Ilustración</figcaption>
+  </a>
+  <a href="#" class="reveal">
+    <img src="https://picsum.photos/seed/ako-mural/800/1000" alt="Mural e instalación">
+    <figcaption>Mural &amp; instalación</figcaption>
+  </a>
+</div>
+
+<!-- ============ SOBRE ============ -->
+<section id="sobre">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <p class="eyebrow">Sobre Ako</p>
+      <h2 class="h-display" style="font-size:clamp(28px,4vw,44px);margin:14px 0 22px">La síntesis entre oficio y mirada</h2>
+      <p>Ako es un estudio de arte visual que trabaja en la frontera entre lo artesanal y lo contemporáneo. Cada colección parte de una investigación de materiales, color y territorio.</p>
+      <p>Sus obras han sido exhibidas en espacios independientes y proyectos colaborativos, construyendo un lenguaje propio que combina precisión técnica y experimentación.</p>
+      <a href="#" class="link-line">Más sobre Ako</a>
+    </div>
+    <div class="about-img reveal">
+      <img src="https://picsum.photos/seed/ako-about/900/1100" alt="Ako en su estudio">
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOTICIAS ============ -->
+<section class="news" id="noticias">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h-display">Noticias</h2>
+      <a href="#" class="link-line">Todas las noticias</a>
+    </div>
+    <div class="news-grid">
+      <a href="#" class="news-card reveal">
+        <div class="thumb"><img src="https://picsum.photos/seed/ako-n1/700/520" alt=""></div>
+        <h3>Nueva serie — Umbral</h3>
+        <time>Julio 2026</time>
+      </a>
+      <a href="#" class="news-card reveal">
+        <div class="thumb"><img src="https://picsum.photos/seed/ako-n2/700/520" alt=""></div>
+        <h3>Exposición colectiva</h3>
+        <time>Junio 2026</time>
+      </a>
+      <a href="#" class="news-card reveal">
+        <div class="thumb"><img src="https://picsum.photos/seed/ako-n3/700/520" alt=""></div>
+        <h3>Mural — Barrio Italia</h3>
+        <time>Mayo 2026</time>
+      </a>
+      <a href="#" class="news-card reveal">
+        <div class="thumb"><img src="https://picsum.photos/seed/ako-n4/700/520" alt=""></div>
+        <h3>Residencia de arte</h3>
+        <time>Abril 2026</time>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERIES DESTACADAS ============ -->
+<div class="series" id="inspiracion">
+  <a href="#" class="reveal">
+    <img src="https://picsum.photos/seed/ako-s1/1920/1080" alt="Serie Umbral">
+    <div class="veil"></div>
+    <div class="wrap txt">
+      <p class="eyebrow" style="color:#d8d4cc">Serie 2026</p>
+      <h3 class="h-display">Umbral</h3>
+      <span class="link-line">Ver serie</span>
+    </div>
+  </a>
+  <a href="#" class="reveal">
+    <img src="https://picsum.photos/seed/ako-s2/1920/1080" alt="Serie Materia Viva">
+    <div class="veil"></div>
+    <div class="wrap txt">
+      <p class="eyebrow" style="color:#d8d4cc">Serie 2025</p>
+      <h3 class="h-display">Materia viva</h3>
+      <span class="link-line">Ver serie</span>
+    </div>
+  </a>
+  <a href="#" class="reveal">
+    <img src="https://picsum.photos/seed/ako-s3/1920/1080" alt="Proyecto mural">
+    <div class="veil"></div>
+    <div class="wrap txt">
+      <p class="eyebrow" style="color:#d8d4cc">Proyecto realizado</p>
+      <h3 class="h-display">Muro sur</h3>
+      <span class="link-line">Ver proyecto</span>
+    </div>
+  </a>
+</div>
+
+<!-- ============ PROCESO ============ -->
+<section>
+  <div class="wrap process-grid">
+    <div class="process-img reveal">
+      <img src="https://picsum.photos/seed/ako-process/1100/760" alt="Proceso de trabajo">
+    </div>
+    <div class="reveal">
+      <p class="eyebrow">Proceso</p>
+      <h2 class="h-display" style="font-size:clamp(28px,4vw,44px);margin:14px 0 22px">Hecho a mano, pensado en capas</h2>
+      <p>Cada obra pasa por un proceso de bocetos, pruebas de material y montaje. El taller es el corazón del trabajo: ahí se ensaya, se descarta y se descubre.</p>
+      <a href="#" class="link-line" style="margin-top:28px;display:inline-block">Conocer el proceso</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter">
+  <div class="wrap">
+    <h2 class="h-display">Mantente al tanto</h2>
+    <p>Novedades sobre nuevas series, exposiciones y proyectos de Ako, directo a tu correo.</p>
+    <form onsubmit="event.preventDefault();this.querySelector('button').textContent='¡Gracias!';">
+      <input type="email" placeholder="Tu correo" required aria-label="Correo electrónico">
+      <button type="submit">Suscribirme</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contacto">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="foot-logo">AKO</a>
+        <ul>
+          <li>Estudio Ako</li>
+          <li>Santiago, Chile</li>
+          <li style="margin-top:14px"><a href="mailto:hola@ako.cl">hola@ako.cl</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Obras</h4>
+        <ul>
+          <li><a href="#">Todas las obras</a></li>
+          <li><a href="#">Series nuevas</a></li>
+          <li><a href="#">Ilustración</a></li>
+          <li><a href="#">Mural &amp; instalación</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Estudio</h4>
+        <ul>
+          <li><a href="#sobre">Sobre Ako</a></li>
+          <li><a href="#noticias">Noticias</a></li>
+          <li><a href="#">Proceso</a></li>
+          <li><a href="#">Encargos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Redes</h4>
+        <ul>
+          <li><a href="#" rel="noopener">Instagram</a></li>
+          <li><a href="#" rel="noopener">Behance</a></li>
+          <li><a href="#" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Ako. Todos los derechos reservados.</span>
+      <span>Diseño &amp; desarrollo — Estudio Ako</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // menú móvil
+  const burger=document.querySelector('.burger');
+  const menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>{
+    const open=menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded',open);
+  });
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    menu.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+  }));
+
+  // reveal on scroll
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
